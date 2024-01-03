@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import React from 'react';
 import StarRating from './StarRating';
 
-const APIKEY= "180ca29e";
+const BASEURL= process.env.REACT_APP_API_BASE_URL;
+const APIKEY= process.env.REACT_APP_API_KEY.slice(1)
+const finalURL= `${BASEURL}/?apikey=${APIKEY}`;
 
 const average = (arr) => { return arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0); }
 
@@ -60,8 +62,12 @@ function Navbar({children, query, setQuery}) {
 async function fetchMovies(query, setIsLoading, setMovies, setError){ // fetch movies with query strings
     try{
         setIsLoading(true); // start loading
-        const res= await fetch(`https://www.omdbapi.com/?apikey=${APIKEY}&s=${query}`);
-        // http://www.omdbapi.com/?apikey=180ca29e&s=interstellar
+        const finalQuery= query.split(' ').map((word) => {
+            if(word.length===0){ return ""; }
+            return word[0].toUpperCase() + word.slice(1);
+        }).join(' ');
+
+        const res= await fetch(`${finalURL}&s=${finalQuery}`);
         if(!res.ok){ throw new Error("Something went wrong !"); }
 
         const data= await res.json();
@@ -81,7 +87,7 @@ async function fetchMovies(query, setIsLoading, setMovies, setError){ // fetch m
 async function fetchMovieDetails(selectedId, setMovieDetail, setIsLoading, setError){
     try{
         setIsLoading(true); // start loading before fetching 
-        const res= await fetch(`https://www.omdbapi.com/?apikey=${APIKEY}&i=${selectedId}`); 
+        const res= await fetch(`${finalURL}&i=${selectedId}`); 
         if(!res.ok){ throw new Error("Something went wrong !"); }
 
         const data= await res.json();
@@ -234,7 +240,7 @@ export default function App() {
     
     // -------- useEffect can be considered as an eventlistener for 'props/state' present in dependency array -----------
     useEffect(function(){
-
+        if(query.length<=1){ return; }
         fetchMovies(query, setIsLoading, setMovies, setError); // we have to define another function coz useEffect do not support async function as arg
     },[query]); // This effect will update each time 'query' state is updated !
 

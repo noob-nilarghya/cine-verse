@@ -26,6 +26,10 @@ Install my-project with npm
   npm run start
 ```
 
+Create a file named ```.env.staging``` and copy everything from ```exampleENV.txt``` to ```.env.staging```, and overwrite your API key there
+
+And you are good to go 😃
+
     
 ## Tech Stack
 
