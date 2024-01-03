@@ -4,7 +4,8 @@ import React from 'react';
 import StarRating from './StarRating';
 
 const BASEURL= process.env.REACT_APP_API_BASE_URL;
-const APIKEY= process.env.REACT_APP_API_KEY.slice(1)
+// const APIKEY= process.env.REACT_APP_API_KEY.slice(1);
+const APIKEY= process.env.REACT_APP_API_KEY;
 const finalURL= `${BASEURL}/?apikey=${APIKEY}`;
 
 const average = (arr) => { return arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0); }
