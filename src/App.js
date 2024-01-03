@@ -60,7 +60,7 @@ function Navbar({children, query, setQuery}) {
 async function fetchMovies(query, setIsLoading, setMovies, setError){ // fetch movies with query strings
     try{
         setIsLoading(true); // start loading
-        const res= await fetch(`http://www.omdbapi.com/?apikey=${APIKEY}&s=${query}`);
+        const res= await fetch(`https://www.omdbapi.com/?apikey=${APIKEY}&s=${query}`);
         // http://www.omdbapi.com/?apikey=180ca29e&s=interstellar
         if(!res.ok){ throw new Error("Something went wrong !"); }
 
