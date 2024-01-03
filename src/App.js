@@ -81,7 +81,7 @@ async function fetchMovies(query, setIsLoading, setMovies, setError){ // fetch m
 async function fetchMovieDetails(selectedId, setMovieDetail, setIsLoading, setError){
     try{
         setIsLoading(true); // start loading before fetching 
-        const res= await fetch(`http://www.omdbapi.com/?apikey=${APIKEY}&i=${selectedId}`); 
+        const res= await fetch(`https://www.omdbapi.com/?apikey=${APIKEY}&i=${selectedId}`); 
         if(!res.ok){ throw new Error("Something went wrong !"); }
 
         const data= await res.json();
